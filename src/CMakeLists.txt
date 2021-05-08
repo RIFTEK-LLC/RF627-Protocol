@@ -47,7 +47,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/)
 ## LINK LIBRARIES
 ## linking all dependencies
 ###############################################################################
-#target_link_libraries(${PROJECT_NAME} platform_methods)
+target_link_libraries(${PROJECT_NAME} platform_methods)
 target_link_libraries(${PROJECT_NAME} endian_conv)
 target_link_libraries(${PROJECT_NAME} custom_vector)
 target_link_libraries(${PROJECT_NAME} custom_string)
