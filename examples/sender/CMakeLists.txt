@@ -3,10 +3,10 @@ cmake_minimum_required(VERSION 3.13)
 
 
 ###############################################################################
-## LIBRARY-PROJECT
+## EXECUTABLE-PROJECT
 ## name and version
 ###############################################################################
-project(RF627-Protocol VERSION 1.2.6 LANGUAGES C)
+project(TestSender LANGUAGES C)
 
 
 
@@ -30,16 +30,15 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${BINARY_DIR}/lib")
 ## TARGET
 ## create target and add include path
 ###############################################################################
-# create glob files for *.h, *.cpp
-file (GLOB_RECURSE H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
-file (GLOB_RECURSE C_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.c)
+# create glob files for *.h, *.c
+file(GLOB C_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.c)
+file(GLOB H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 # concatenate the results (glob files) to variable
 set  (SOURCES ${C_FILES} ${H_FILES})
-# create lib from src
+# create executable from src
 if (NOT TARGET ${PROJECT_NAME})
-    add_library(${PROJECT_NAME} STATIC ${SOURCES})
+    add_executable(${PROJECT_NAME} ${SOURCES})
 endif()
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/)
 
 
 
@@ -47,7 +46,12 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/)
 ## LINK LIBRARIES
 ## linking all dependencies
 ###############################################################################
-#target_link_libraries(${PROJECT_NAME} platform_methods)
-target_link_libraries(${PROJECT_NAME} endian_conv)
-target_link_libraries(${PROJECT_NAME} custom_vector)
-target_link_libraries(${PROJECT_NAME} custom_string)
+find_package (Threads)
+target_link_libraries(${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
+
+target_link_libraries(${PROJECT_NAME} RF627-Protocol)
+
+if(MINGW)
+    target_link_libraries(${PROJECT_NAME} ws2_32)
+    target_link_libraries(${PROJECT_NAME} iphlpapi)
+endif(MINGW)

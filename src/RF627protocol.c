@@ -1,9 +1,10 @@
-﻿#include "rf627_protocol.h"
+﻿#include "RF627protocol.h"
+#include "netwok_platform.h"
 #include "memory_platform.h"
+#include "custom_vector.h"
 #include "endian_conv.h"
-#include <string.h>
-#include "custom_string.h"
 
+#include <string.h>
 
 //
 // rf627_protocol_get_size

@@ -2,9 +2,7 @@
 #define RF627_PROTOCOL_H
 
 #include "platform_types.h"
-#include "netwok_platform.h"
-#include "memory_platform.h"
-#include "custom_vector.h"
+
 
 /* RF627_old - Service Message
  +--------+---------------+-------------+--------------------------------------+
