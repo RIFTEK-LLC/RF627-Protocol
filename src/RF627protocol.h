@@ -738,6 +738,12 @@ rfUint32 rf627_protocol_old_get_size_of_request_write_user_sensor_params_payload
  * @return Size of response profile header in packet from rf627old
  */
 rfUint32 rf627_protocol_old_get_size_of_response_write_user_params_packet();
+/**
+ * @brief rf627_protocol_old_get_size_of_response_save_user_params_packet
+ * @return Size of response profile header in packet from rf627old
+ */
+rfUint32 rf627_protocol_old_get_size_of_response_save_user_params_packet();
+
 
 
 //
@@ -806,6 +812,16 @@ rf627_old_header_msg_t rf627_protocol_old_create_read_factory_params_msg_request
  * @return old request write_params msg
  */
 rf627_old_header_msg_t rf627_protocol_old_create_write_user_params_msg_request(
+        rf627_protocol_old_header_confirmation_t confirmation,
+        rfUint32                                 serial_number,
+        rfUint16                                 msg_count
+        );
+
+/**
+ * @brief rf627_protocol_old_create_save_user_params_msg_request
+ * @return old request write_params msg
+ */
+rf627_old_header_msg_t rf627_protocol_old_create_save_user_params_msg_request(
         rf627_protocol_old_header_confirmation_t confirmation,
         rfUint32                                 serial_number,
         rfUint16                                 msg_count
@@ -923,6 +939,14 @@ rfSize rf627_protocol_old_pack_read_factory_params_msg_request_to_packet(
  */
 rfSize rf627_protocol_old_pack_write_user_params_msg_request_to_packet(
         rfUint8* buffer, rfUint32 buffer_size, rf627_old_header_msg_t* msg);
+
+/**
+ * @brief rf627_protocol_old_pack_write_user_params_msg_request_to_packet
+ * @return old request read_params msg
+ */
+rfSize rf627_protocol_old_pack_save_user_params_msg_request_to_packet(
+        rfUint8* buffer, rfUint32 buffer_size, rf627_old_header_msg_t* msg);
+
 
 /**
  * @brief rf627_protocol_old_pack_command_set_counters_to_packet
