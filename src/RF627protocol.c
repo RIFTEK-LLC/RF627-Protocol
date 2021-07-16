@@ -405,6 +405,20 @@ rfSize rf627_protocol_old_pack_save_user_params_msg_request_to_packet(
     }
 }
 
+rfSize rf627_protocol_old_pack_reboot_msg_request_to_packet(
+        rfUint8* buffer, rfUint32 buffer_size, rf627_old_header_msg_t* msg)
+{
+    if(rf627_protocol_old_get_size_of_request_hello_packet() <= buffer_size)
+    {
+        return rf627_protocol_old_pack_header_msg_to_packet(buffer, msg);
+    }else
+    {
+        return 0;
+    }
+}
+
+
+
 rfSize rf627_protocol_old_pack_command_set_counters_to_packet(
         rfUint8* buffer, rfUint32 buffer_size, rf627_old_header_msg_t* msg)
 {
@@ -921,6 +935,27 @@ rf627_old_header_msg_t rf627_protocol_old_create_save_user_params_msg_request(rf
                 serial_number,
                 msg_count,
                 kRF627_OLD_PROTOCOL_HEADER_CMD_SAVE_PARAMS,
+                0
+                );
+    return msg;
+}
+
+
+
+rf627_old_header_msg_t rf627_protocol_old_create_reboot_msg_request(rf627_protocol_old_header_confirmation_t confirmation, rfUint32 serial_number, rfUint16 msg_count)
+{
+    rf627_old_header_msg_t msg = rf627_protocol_old_create_header_msg(
+                0,
+                kRF627_OLD_PROTOCOL_HEADER_CHECKSUM_OFF,
+                kRF627_OLD_PROTOCOL_HEADER_LAST_COMMAND,
+                confirmation,
+                kRF627_OLD_PROTOCOL_HEADER_COMMAND_MSG,
+                0,
+                0,
+                0,
+                serial_number,
+                msg_count,
+                kRF627_OLD_PROTOCOL_HEADER_CMD_RESET,
                 0
                 );
     return msg;
