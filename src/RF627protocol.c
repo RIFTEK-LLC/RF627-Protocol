@@ -541,11 +541,34 @@ rf627_old_stream_msg_t rf627_protocol_old_unpack_header_msg_from_profile_packet(
     profile_header_msg.packet_count = get_rfUint32_from_packet(&p, kEndianessLittle);
     profile_header_msg.measure_count = get_rfUint32_from_packet(&p, kEndianessLittle);
 
-    profile_header_msg.zmr = get_rfUint16_from_packet(&p, kEndianessLittle);
-    profile_header_msg.xemr = get_rfUint16_from_packet(&p, kEndianessLittle);
-    profile_header_msg.discrete_value = get_rfUint16_from_packet(&p, kEndianessLittle);
-    get_array_from_packet((rfUint8*)profile_header_msg.reserved_0, &p,
-                           sizeof (profile_header_msg.reserved_0));
+    if (profile_header_msg.proto_version_major == 1 && profile_header_msg.proto_version_minor == 0)
+    {
+        profile_header_msg.v1_0_standart.zmr = get_rfUint16_from_packet(&p, kEndianessLittle);
+        profile_header_msg.v1_0_standart.xemr = get_rfUint16_from_packet(&p, kEndianessLittle);
+        profile_header_msg.v1_0_standart.discrete_value = get_rfUint16_from_packet(&p, kEndianessLittle);
+        get_array_from_packet((rfUint8*)profile_header_msg.v1_0_standart.reserved_0, &p,
+                               sizeof (profile_header_msg.v1_0_standart.reserved_0));
+
+    }else if (profile_header_msg.proto_version_major == 1 && profile_header_msg.proto_version_minor == 1)
+    {
+        // poky
+        if (profile_header_msg.data_type == 0x20)
+        {
+            profile_header_msg.v1_1_polynomial.zmr = get_rfUint16_from_packet(&p, kEndianessLittle);
+            profile_header_msg.v1_1_polynomial.xemr = get_rfUint16_from_packet(&p, kEndianessLittle);
+            profile_header_msg.v1_1_polynomial.scaling_factor = get_rfFloat_from_packet(&p, kEndianessLittle);
+            get_array_from_packet((rfUint8*)profile_header_msg.v1_1_polynomial.reserved_0, &p,
+                                   sizeof (profile_header_msg.v1_1_polynomial.reserved_0));
+        }else
+        {
+            profile_header_msg.v1_1_standart.zmr = get_rfUint16_from_packet(&p, kEndianessLittle);
+            profile_header_msg.v1_1_standart.xemr = get_rfUint16_from_packet(&p, kEndianessLittle);
+            profile_header_msg.v1_1_standart.discrete_value = get_rfUint16_from_packet(&p, kEndianessLittle);
+            get_array_from_packet((rfUint8*)profile_header_msg.v1_1_standart.reserved_0, &p,
+                                   sizeof (profile_header_msg.v1_1_standart.reserved_0));
+        }
+    }
+
     profile_header_msg.license_hash = get_rfUint32_from_packet(&p, kEndianessLittle);
 
     profile_header_msg.exposure_time = get_rfUint32_from_packet(&p, kEndianessLittle);

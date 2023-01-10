@@ -664,10 +664,27 @@ typedef struct
     rfUint32    packet_count;
     rfUint32    measure_count;
 
-    rfUint16    zmr;
-    rfUint16    xemr;
-    rfUint16    discrete_value;
-    rfUint8     reserved_0[10];
+    union{
+        struct{
+            rfUint16    zmr;
+            rfUint16    xemr;
+            rfUint16    discrete_value;
+            rfUint8     reserved_0[10];
+        }v1_0_standart;
+        struct{
+            rfUint16    zmr;
+            rfUint16    xemr;
+            rfUint16    discrete_value;
+            rfUint8     reserved_0[10];
+        }v1_1_standart;
+        struct{
+            rfUint16    zmr;
+            rfUint16    xemr;
+            rfFloat     scaling_factor;
+            rfUint8     reserved_0[8];
+        }v1_1_polynomial;
+    };
+
     rfUint32    license_hash;
 
     rfUint32    exposure_time;
