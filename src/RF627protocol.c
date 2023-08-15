@@ -575,16 +575,16 @@ rf627_old_stream_msg_t rf627_protocol_old_unpack_header_msg_from_profile_packet(
             profile_header_msg.v1_2_polynomial.zmr = get_rfUint16_from_packet(&p, kEndianessLittle);
             profile_header_msg.v1_2_polynomial.xemr = get_rfUint16_from_packet(&p, kEndianessLittle);
             profile_header_msg.v1_2_polynomial.scaling_factor = get_rfFloat_from_packet(&p, kEndianessLittle);
-            get_array_from_packet((rfUint8*)profile_header_msg.v1_1_polynomial.reserved_0, &p,
-                                   sizeof (profile_header_msg.v1_1_polynomial.reserved_0));
+            get_array_from_packet((rfUint8*)profile_header_msg.v1_2_polynomial.reserved_0, &p,
+                                   sizeof (profile_header_msg.v1_2_polynomial.reserved_0));
         }else
         {
             profile_header_msg.v1_2_standart.zmr = get_rfUint16_from_packet(&p, kEndianessLittle);
             profile_header_msg.v1_2_standart.xemr = get_rfUint16_from_packet(&p, kEndianessLittle);
             profile_header_msg.v1_2_standart.discrete_value = get_rfUint16_from_packet(&p, kEndianessLittle);
             profile_header_msg.v1_2_standart.alignment_with_sensor = get_rfUint16_from_packet(&p, kEndianessLittle);
-            get_array_from_packet((rfUint8*)profile_header_msg.v1_1_standart.reserved_0, &p,
-                                   sizeof (profile_header_msg.v1_1_standart.reserved_0));
+            get_array_from_packet((rfUint8*)profile_header_msg.v1_2_standart.reserved_0, &p,
+                                   sizeof (profile_header_msg.v1_2_standart.reserved_0));
         }
     }
 
